@@ -58,8 +58,12 @@ func GetClaimSub() (string, error) {
 func GetUserid() (string, error) {
 	auth0id, err := GetClaimSub()
 
+	if err != nil {
+		return "", err
+	}
+
 	// The auth0id looks like: auth0|5bcc993740asfeae771f
 	// cutting off the prefix
 	userid := auth0id[6:]
-	return userid, err
+	return userid, nil
 }

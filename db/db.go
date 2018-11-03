@@ -15,7 +15,17 @@ import (
 // The environment variable "writetodb_uri" must point to the writetodb function.
 func Store(data interface{}) ([]byte, error) {
 	url := os.Getenv("writetodb_uri")
+	return exec(url, data)
+}
 
+// Find sends a query request to the find in db function and returns the data.
+// The environment variable "findindb_uri" must point to the findindb function.
+func Find(query interface{}) ([]byte, error) {
+	url := os.Getenv("findindb_uri")
+	return exec(url, query)
+}
+
+func exec(url string, data interface{}) ([]byte, error) {
 	if url == "" {
 		return nil, errors.New("Mongo Url env is empty")
 	}
@@ -26,25 +36,17 @@ func Store(data interface{}) ([]byte, error) {
 		return nil, err
 	}
 
-	return postData(url, body)
-}
-
-// Find sends a query request to the find in db function and returns the data.
-// The environment variable "findindb_uri" must point to the findindb function.
-func Find(query interface{}) ([]byte, error) {
-	url := os.Getenv("findindb_uri")
-
-	if url == "" {
-		return nil, errors.New("Mongo Url env is empty")
-	}
-
-	body, err := createBody(query)
+	response, err := http.Post(url, "application/json", body)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return postData(url, body)
+	if response.StatusCode != http.StatusOK && response.StatusCode != http.StatusAccepted {
+		return nil, errors.New("Invalid response status code")
+	}
+
+	return ioutil.ReadAll(response.Body)
 }
 
 func createBody(data interface{}) (io.Reader, error) {
@@ -55,18 +57,4 @@ func createBody(data interface{}) (io.Reader, error) {
 	}
 
 	return bytes.NewReader(json), nil
-}
-
-func postData(url string, data io.Reader) ([]byte, error) {
-	response, err := http.Post(url, "application/json", data)
-
-	if err != nil {
-		return nil, errors.New("Error by sending post request")
-	}
-
-	if response.StatusCode != http.StatusOK && response.StatusCode != http.StatusAccepted {
-		return nil, errors.New("Invalid response status code")
-	}
-
-	return ioutil.ReadAll(response.Body)
 }
