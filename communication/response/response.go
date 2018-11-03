@@ -11,9 +11,14 @@ type Response struct {
 }
 
 // JSON returns the Response struct as json string
-func (response *Response) JSON() (string, error) {
+func (response *Response) JSON() string {
 	json, err := json.Marshal(response)
-	return string(json), err
+
+	if err != nil {
+		panic("Could not marshal response to JSON")
+	}
+
+	return string(json)
 }
 
 // NewErrorResponse creates a new Response with status code -1
@@ -23,13 +28,15 @@ func NewErrorResponse(err error) string {
 		Message: err.Error(),
 	}
 
-	json, _ := response.JSON()
-	return json
+	return response.JSON()
 }
 
 // NewSuccessResponse creates a new Response with status code -0
-func NewSuccessResponse(message string, data interface{}) string {
-	response := Response{0, message, data}
-	json, _ := response.JSON()
-	return json
+func NewSuccessResponse(data interface{}) string {
+	response := Response{
+		Status: 0,
+		Data:   data,
+	}
+
+	return response.JSON()
 }
