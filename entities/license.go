@@ -4,6 +4,6 @@ package entities
 // as license in the database
 type License struct {
 	UserID     string `json:"userid"`
-	License    string `json:"license"`
+	Key        string `json:"key"`
 	ValidUntil int64  `json:"validuntil"`
 }
