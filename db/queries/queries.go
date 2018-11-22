@@ -18,7 +18,7 @@ type FindValues struct {
 // JSON and send to the db function
 func NewFindValuesQuery(deviceid string, minTime, maxTime int64) FindValues {
 	query := new(FindValues)
-	query.Collection = "iotdevices"
+	query.Collection = "iotdata"
 	query.Query.DeviceID = deviceid
 	query.Query.Time.Min = minTime
 	query.Query.Time.Max = maxTime
