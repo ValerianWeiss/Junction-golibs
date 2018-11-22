@@ -6,22 +6,22 @@ import "github.com/ValerianWeiss/Junction-golibs/db/entities"
 type FindValues struct {
 	Collection string `json:"collection"`
 	Query      struct {
-		DeviceID  string `json:"deviceid"`
-		Timestamp struct {
+		DeviceID string `json:"deviceid"`
+		Time     struct {
 			Min int64 `json:"$gt"`
 			Max int64 `json:"$lt"`
-		} `json:"timestamp"`
+		} `json:"time"`
 	} `json:"query"`
 }
 
 // NewFindValuesQuery creates a new db query struct which can be marshalled to
 // JSON and send to the db function
-func NewFindValuesQuery(deviceid string, min, max int64) FindValues {
+func NewFindValuesQuery(deviceid string, minTime, maxTime int64) FindValues {
 	query := new(FindValues)
 	query.Collection = "iotdevices"
 	query.Query.DeviceID = deviceid
-	query.Query.Timestamp.Min = min
-	query.Query.Timestamp.Max = max
+	query.Query.Time.Min = minTime
+	query.Query.Time.Max = maxTime
 	return *query
 }
 
