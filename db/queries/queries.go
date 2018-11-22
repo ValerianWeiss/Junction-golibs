@@ -61,6 +61,23 @@ func NewFindDevicesQuery(userid string) FindDevices {
 	return *query
 }
 
+// FindLicenses request for the db function
+type FindLicenses struct {
+	Collection string `json:"collection"`
+	Query      struct {
+		UserID string `json:"userid"`
+	} `json:"query"`
+}
+
+// NewFindLicenseQuery creates a new db query struct which can be marshalled to
+// JSON and send to the db function
+func NewFindLicenseQuery(userid string) FindLicenses {
+	query := new(FindLicenses)
+	query.Collection = "licenses"
+	query.Query.UserID = userid
+	return *query
+}
+
 // StoreLicenses request for the db function
 type StoreLicenses struct {
 	Collection string             `json:"collection"`
