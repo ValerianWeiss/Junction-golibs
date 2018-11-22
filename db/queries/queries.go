@@ -61,26 +61,26 @@ func NewFindDevicesQuery(userid string) FindDevices {
 	return *query
 }
 
-// StoreLicense request for the db function
-type StoreLicense struct {
-	Collection string           `json:"collection"`
-	Data       entities.License `json:"data`
+// StoreLicenses request for the db function
+type StoreLicenses struct {
+	Collection string             `json:"collection"`
+	Records    []entities.License `json:"records"` // db function is expecting the value as array
 }
 
 // NewStoreLicenseQuery creates a new db query struct which can be marshalled to
 // JSON and send to the db function
-func NewStoreLicenseQuery(license entities.License) StoreLicense {
-	return StoreLicense{"licenses", license}
+func NewStoreLicenseQuery(license entities.License) StoreLicenses {
+	return StoreLicenses{"licenses", []entities.License{license}}
 }
 
-// StoreDevice request for the db function
-type StoreDevice struct {
-	Collection string          `json:"collection"`
-	Data       entities.Device `json:"data`
+// StoreDevices request for the db function
+type StoreDevices struct {
+	Collection string            `json:"collection"`
+	Records    []entities.Device `json:"records"` // db function is expecting the value as array
 }
 
 // NewStoreDeviceQuery creates a new db query struct which can be marshalled to
 // JSON and send to the db function
-func NewStoreDeviceQuery(device entities.Device) StoreDevice {
-	return StoreDevice{"iotdevices", device}
+func NewStoreDeviceQuery(device entities.Device) StoreDevices {
+	return StoreDevices{"iotdevices", []entities.Device{device}}
 }
