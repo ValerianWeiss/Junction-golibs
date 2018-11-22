@@ -1,6 +1,6 @@
 package queries
 
-import "github.com/ValerianWeiss/Junction-golibs/entities"
+import "github.com/ValerianWeiss/Junction-golibs/db/entities"
 
 // FindValues request for the db function
 type FindValues struct {
