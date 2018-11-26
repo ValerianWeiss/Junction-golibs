@@ -6,8 +6,8 @@ import "encoding/json"
 // of the serverless request
 type Response struct {
 	Status  int         `json:"status"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Message string      `json:"message,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 // JSON returns the Response struct as json string
