@@ -25,39 +25,20 @@ func NewFindValuesQuery(deviceid string, minTime, maxTime int64) FindValues {
 	return *query
 }
 
-// FindDeviceID request for the db function
-type FindDeviceID struct {
-	Collection string `json:"collection"`
-	Query      struct {
-		UserID     string `json:"userid"`
-		Devicename string `json:"devicename"`
-	} `json:"query"`
-}
-
-// NewFindDeviceIDQuery creates a new db query struct which can be marshalled to
-// JSON and send to the db function
-func NewFindDeviceIDQuery(userid, devicename string) FindDeviceID {
-	query := new(FindDeviceID)
-	query.Collection = "iotdevices"
-	query.Query.UserID = userid
-	query.Query.Devicename = devicename
-	return *query
-}
-
 // FindDevices request for the db function
 type FindDevices struct {
 	Collection string `json:"collection"`
 	Query      struct {
-		UserID string `json:"userid"`
+		entities.Device
 	} `json:"query"`
 }
 
 // NewFindDevicesQuery creates a new db query struct which can be marshalled to
 // JSON and send to the db function
-func NewFindDevicesQuery(userid string) FindDevices {
+func NewFindDevicesQuery(device entities.Device) FindDevices {
 	query := new(FindDevices)
 	query.Collection = "iotdevices"
-	query.Query.UserID = userid
+	query.Query.Device = device
 	return *query
 }
 
@@ -65,16 +46,16 @@ func NewFindDevicesQuery(userid string) FindDevices {
 type FindLicenses struct {
 	Collection string `json:"collection"`
 	Query      struct {
-		UserID string `json:"userid"`
+		entities.License
 	} `json:"query"`
 }
 
-// NewFindLicenseQuery creates a new db query struct which can be marshalled to
+// NewFindLicensesQuery creates a new db query struct which can be marshalled to
 // JSON and send to the db function
-func NewFindLicenseQuery(userid string) FindLicenses {
+func NewFindLicensesQuery(license entities.License) FindLicenses {
 	query := new(FindLicenses)
 	query.Collection = "licenses"
-	query.Query.UserID = userid
+	query.Query.License = license
 	return *query
 }
 
