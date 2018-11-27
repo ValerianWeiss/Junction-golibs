@@ -1,4 +1,4 @@
-package response
+package communication
 
 import "encoding/json"
 
