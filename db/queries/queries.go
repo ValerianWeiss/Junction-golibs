@@ -82,3 +82,15 @@ type StoreDevices struct {
 func NewStoreDeviceQuery(device entities.Device) StoreDevices {
 	return StoreDevices{"iotdevices", []entities.Device{device}}
 }
+
+// StoreValues request for the db function
+type StoreValues struct {
+	Collection string           `json:"collection"`
+	Records    []entities.Value `json:"records"` // db function is expecting the value as array
+}
+
+// NewStoreValueQuery creates a new db query struct which can be marshalled to
+// JSON and send to the db function
+func NewStoreValueQuery(value entities.Value) StoreValues {
+	return StoreValues{"iotdata", []entities.Value{value}}
+}
