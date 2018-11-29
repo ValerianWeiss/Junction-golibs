@@ -14,6 +14,7 @@ type Device struct {
 	UserID     string `json:"userid,omitempty"`
 	DeviceID   string `json:"deviceid,omitempty"`
 	Devicename string `json:"devicename,omitempty"`
+	IAT        int64  `json:"iat,omitempty"`
 }
 
 // Value is the entity which is getting stored
