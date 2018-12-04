@@ -10,7 +10,7 @@ type FindValues struct {
 		Time     struct {
 			Min int64 `json:"$gt"`
 			Max int64 `json:"$lt"`
-		} `json:"time"`
+		} `json:"iat"`
 	} `json:"query"`
 }
 
