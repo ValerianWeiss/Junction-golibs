@@ -9,7 +9,7 @@ import (
 )
 
 // GetClaim returns a claim from a jwt as a string.
-// the token should contianer the "Bearer" prefix
+// the token should container the "Bearer" prefix
 func GetClaim(claim string) (string, error) {
 	token, err := getToken()
 
